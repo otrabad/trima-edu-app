@@ -1,0 +1,63 @@
+{
+  "modulo": "Introducción de la Información del Donante",
+  "descripcion": "Ingresar correctamente los datos del donante antes de iniciar el proceso.",
+  "campos": [
+    {
+      "nombre": "Sexo",
+      "tipo": "seleccion",
+      "opciones": ["Mujer", "Varón"],
+      "requerido": true
+    },
+    {
+      "nombre": "Estatura",
+      "unidad": "cm",
+      "rango": [122, 243],
+      "tipo": "numerico",
+      "requerido": true,
+      "mensaje_error": "La estatura debe estar entre 122 y 243 cm."
+    },
+    {
+      "nombre": "Peso",
+      "unidad": "kg",
+      "rango": [23, 226],
+      "tipo": "numerico",
+      "requerido": true,
+      "mensaje_error": "El peso debe estar entre 23 y 226 kg."
+    },
+    {
+      "nombre": "Grupo Sanguíneo",
+      "tipo": "seleccion",
+      "opciones": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+      "requerido": true
+    },
+    {
+      "nombre": "Hematocrito/Hemoglobina",
+      "tipo": "compuesto",
+      "campos": {
+        "hematocrito": {
+          "rango": [30, 55],
+          "unidad": "%"
+        },
+        "hemoglobina": {
+          "rango": [10.0, 18.4],
+          "unidad": "g/dL"
+        }
+      },
+      "requerido": true,
+      "mensaje_error": "Valores fuera de rango. Hematocrito 30–55 / Hemoglobina 10.0–18.4"
+    },
+    {
+      "nombre": "Recuento previo de plaquetas",
+      "unidad": "x1000/μL",
+      "rango": [50, 600],
+      "tipo": "numerico",
+      "requerido": false,
+      "valor_por_defecto": 200,
+      "mensaje_error": "Fuera de rango. Debe estar entre 50 y 600 (x1000/μL)."
+    }
+  ],
+  "notas": [
+    "Si no se introduce el recuento previo de plaquetas, se usará un valor predeterminado de 200.000 plaquetas/μL.",
+    "Es preferible usar valores venosos del mismo día para mayor precisión."
+  ]
+}
