@@ -1,27 +1,29 @@
-const modulos = {
-  1: 'modules/modulo_1_donante.json'
-};
+// Selector del contenedor principal
+const moduloContenido = document.getElementById("modulo-contenido");
 
+// Función para cargar el módulo desde un archivo JSON
 function cargarModulo(numero) {
-  fetch(modulos[numero])
+  fetch(`modules/modulo_${numero}_donante.json`)
     .then(response => response.json())
-    .then(data => mostrarModulo(data));
+    .then(data => mostrarModulo(data))
+    .catch(error => console.error("Error al cargar el módulo:", error));
 }
 
+// Función para mostrar el módulo
 function mostrarModulo(data) {
-  const container = document.getElementById("modulo-contenido");
-  container.innerHTML = "";
+  moduloContenido.innerHTML = ""; // Limpiar el contenido anterior
 
-  // Título y descripción
+  // Título del módulo
   const h2 = document.createElement('h2');
   h2.textContent = data.modulo;
-  container.appendChild(h2);
+  moduloContenido.appendChild(h2);
 
+  // Descripción del módulo
   const p = document.createElement('p');
   p.textContent = data.descripcion;
-  container.appendChild(p);
+  moduloContenido.appendChild(p);
 
-  // Generar formulario dinámico
+  // Crear formulario dinámico
   const form = document.createElement('form');
 
   data.campos.forEach(campo => {
@@ -51,37 +53,36 @@ function mostrarModulo(data) {
     form.appendChild(input);
   });
 
-  const divMensajes = document.createElement('div');
-  divMensajes.id = 'mensajes';
-
+  // Botón para confirmar información
   const btnSubmit = document.createElement('button');
   btnSubmit.type = 'submit';
   btnSubmit.textContent = 'Confirmar Información';
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    validarFormulario(data.campos, divMensajes);
+    validarFormulario(data.campos, moduloContenido);
   });
 
-  form.appendChild(divMensajes);
-  form.appendChild(btnSubmit);
-
-  container.appendChild(form);
+  moduloContenido.appendChild(form);
+  moduloContenido.appendChild(btnSubmit);
 }
 
-function validarFormulario(campos, mensajesDiv) {
-  mensajesDiv.innerHTML = '';
+// Función para validar el formulario
+function validarFormulario(campos, container) {
+  container.innerHTML = ""; // Limpiar mensajes anteriores
+
   let valid = true;
 
   campos.forEach(campo => {
     const valor = document.getElementById(campo.nombre).value;
+
     if (!valor && campo.requerido) {
-      mostrarError(mensajesDiv, campo.nombre, 'Campo requerido.');
+      mostrarError(container, campo.nombre, campo.mensaje_error);
       valid = false;
     } else if (campo.rango && valor !== '') {
       const num = parseFloat(valor);
       if (num < campo.rango[0] || num > campo.rango[1]) {
-        mostrarError(mensajesDiv, campo.nombre, campo.mensaje_error || `Fuera de rango (${campo.rango[0]}–${campo.rango[1]}).`);
+        mostrarError(container, campo.nombre, campo.mensaje_error);
         valid = false;
       }
     }
@@ -91,13 +92,19 @@ function validarFormulario(campos, mensajesDiv) {
     const exito = document.createElement('div');
     exito.className = 'success';
     exito.textContent = '✅ Información confirmada correctamente.';
-    mensajesDiv.appendChild(exito);
+    container.appendChild(exito);
   }
 }
 
+// Función para mostrar errores
 function mostrarError(container, campo, mensaje) {
   const error = document.createElement('div');
   error.className = 'error';
   error.textContent = `⚠️ ${campo}: ${mensaje}`;
   container.appendChild(error);
 }
+
+// Inicializar el módulo 1 al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  cargarModulo(1);
+});
