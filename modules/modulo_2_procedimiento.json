@@ -1,0 +1,26 @@
+{
+  "modulo": "Selección del Procedimiento",
+  "descripcion": "Seleccionar el tipo de recolección según los datos del donante y las necesidades clínicas.",
+  "procedimientos_disponibles": [
+    {
+      "nombre": "Recolección de Plaquetas",
+      "iconos": ["gota_verde", "lupa"],
+      "duracion": 76,
+      "rendimiento": "6.5 × 10^11 plaquetas"
+    },
+    {
+      "nombre": "Recolección de Plasma",
+      "iconos": ["asterisco"],
+      "duracion": 60,
+      "volumen": "200 ml"
+    }
+  ],
+  "filtros": {
+    "por_duracion": true,
+    "por_flujo": true
+  },
+  "notas": [
+    "Solo aparecerán los procedimientos compatibles con el equipo de líneas colocado.",
+    "Si se cambia el flujo durante el proceso, puede afectar la duración y rendimiento del procedimiento."
+  ]
+}
