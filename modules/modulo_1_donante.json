@@ -6,7 +6,8 @@
       "nombre": "Sexo",
       "tipo": "seleccion",
       "opciones": ["Mujer", "Varón"],
-      "requerido": true
+      "requerido": true,
+      "mensaje_error": "Debe seleccionar el sexo del donante."
     },
     {
       "nombre": "Estatura",
@@ -28,7 +29,8 @@
       "nombre": "Grupo Sanguíneo",
       "tipo": "seleccion",
       "opciones": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-      "requerido": true
+      "requerido": true,
+      "mensaje_error": "Debe seleccionar un grupo sanguíneo válido."
     },
     {
       "nombre": "Hematocrito/Hemoglobina",
